@@ -24,7 +24,7 @@ public class FileManager {
                 if(mode == Modes.ENCRYPTION) {
                     writeLine(cipher.encrypt(line));
                 }
-                if(mode == Modes.DECRYPTING) {
+                if(mode == Modes.DECRYPTION) {
                     writeLine(cipher.decrypt(line));
                 }
             }
@@ -37,7 +37,7 @@ public class FileManager {
         try {
             Files.writeString(Path.of(resultFilePath), line + "\n", StandardOpenOption.APPEND);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 

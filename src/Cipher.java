@@ -8,21 +8,21 @@ public class Cipher {
         this.key = key;
     }
 
-    public String encrypt(String word) {
+    public String encrypt(String line) {
         StringBuilder stringBuilder = new StringBuilder();
 
-        for (int i = 0; i < word.length(); i++) {
-            if (!Character.isLetter(word.charAt(i))) {
-                stringBuilder.append(word.charAt(i));
+        for (int i = 0; i < line.length(); i++) {
+            if (!Character.isLetter(line.charAt(i))) {
+                stringBuilder.append(line.charAt(i));
                 continue;
             }
             for (int j = 0; j < alphabet.length; j++) {
-                if (word.charAt(i) == alphabet[j]) {
+                if (line.charAt(i) == alphabet[j]) {
                     stringBuilder.append(
                             alphabet[(j + key % alphabet.length + alphabet.length) % alphabet.length]);
                     break;
                 }
-                if (word.toLowerCase().charAt(i) == alphabet[j]) {
+                if (line.toLowerCase().charAt(i) == alphabet[j]) {
                     stringBuilder.append(Character.toUpperCase(
                             alphabet[(j + key % alphabet.length + alphabet.length) % alphabet.length]));
                     break;
@@ -33,21 +33,21 @@ public class Cipher {
         return stringBuilder.toString();
     }
 
-    public String decrypt(String encryptedWord) {
+    public String decrypt(String line) {
         StringBuilder stringBuilder = new StringBuilder();
 
-        for (int i = 0; i < encryptedWord.length(); i++) {
-            if (!Character.isLetter(encryptedWord.charAt(i))) {
-                stringBuilder.append(encryptedWord.charAt(i));
+        for (int i = 0; i < line.length(); i++) {
+            if (!Character.isLetter(line.charAt(i))) {
+                stringBuilder.append(line.charAt(i));
                 continue;
             }
             for (int j = 0; j < alphabet.length; j++) {
-                if (encryptedWord.charAt(i) == alphabet[j]) {
+                if (line.charAt(i) == alphabet[j]) {
                     stringBuilder.append(
                             alphabet[(j - key % alphabet.length + alphabet.length) % alphabet.length]);
                     break;
                 }
-                if (encryptedWord.toLowerCase().charAt(i) == alphabet[j]) {
+                if (line.toLowerCase().charAt(i) == alphabet[j]) {
                     stringBuilder.append(Character.toUpperCase(
                             alphabet[(j - key % alphabet.length + alphabet.length) % alphabet.length]));
                     break;
@@ -58,24 +58,24 @@ public class Cipher {
         return stringBuilder.toString();
     }
 
-    public String encryptLine(String line) {
-        StringBuilder stringBuilder = new StringBuilder();
-        String[] words = line.split(" ");
-        for (String word : words) {
-            stringBuilder.append(encrypt(word) + " ");
-        }
-
-        return stringBuilder.toString().trim();
-    }
-
-    public String decryptLine(String line) {
-        StringBuilder stringBuilder = new StringBuilder();
-        String[] words = line.split(" ");
-        for (String word : words) {
-            stringBuilder.append(decrypt(word) + " ");
-        }
-
-        return stringBuilder.toString().trim();
-    }
+//    public String encryptLine(String line) {
+//        StringBuilder stringBuilder = new StringBuilder();
+//        String[] words = line.split(" ");
+//        for (String word : words) {
+//            stringBuilder.append(encrypt(word) + " ");
+//        }
+//
+//        return stringBuilder.toString().trim();
+//    }
+//
+//    public String decryptLine(String line) {
+//        StringBuilder stringBuilder = new StringBuilder();
+//        String[] words = line.split(" ");
+//        for (String word : words) {
+//            stringBuilder.append(decrypt(word) + " ");
+//        }
+//
+//        return stringBuilder.toString().trim();
+//    }
 
 }
