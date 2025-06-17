@@ -1,3 +1,5 @@
+package Model;
+
 public class Validator {
 
     public void isValidKey(int key, char[] alphabet) {

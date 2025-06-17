@@ -1,7 +1,9 @@
+package Model;
+
 public class Cipher {
 
     private char[] alphabet;
-    private int key = 0;
+    private int key;
 
     public Cipher(char[] alphabet, int key) {
         this.alphabet = alphabet;

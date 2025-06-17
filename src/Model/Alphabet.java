@@ -1,10 +1,12 @@
+package Model;
+
 public class Alphabet {
 
-     private final char[] ALPHABET = {'a', 'b', 'c', 'd', 'e', 'f',
+     private static final char[] ALPHABET = {'a', 'b', 'c', 'd', 'e', 'f',
             'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
             'u', 'v', 'w', 'x', 'y', 'z' };
 
-     public char[] getALPHABET() {
+     public static char[] getALPHABET() {
           return ALPHABET;
      }
 }
