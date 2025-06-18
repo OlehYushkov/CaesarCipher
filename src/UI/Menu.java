@@ -16,22 +16,20 @@ public class Menu {
         System.out.print("Select an option: ");
     }
 
-    public void showEnterSourceFileMenu() {
+    public void showEmptyLine() {
         System.out.println();
-        System.out.print("Enter a Path to Source file: ");
+    }
 
+    public void showEnterSourceFileMenu() {
+        System.out.print("Enter a Path to Source file: ");
     }
 
     public void showEnterResultFileMenu() {
-        System.out.println();
         System.out.print("Enter a Path to Output file: ");
-
     }
 
     public void showEnterKeyMenu() {
-        System.out.println();
         System.out.print("Enter a Encryption key: ");
-
     }
 
     public void showProcessCompletedMenu() {
@@ -40,5 +38,20 @@ public class Menu {
         System.out.println("Process completed.");
         System.out.println("------------------");
         System.out.println();
+    }
+
+    public void showEncryptWithKeyIntroMenu() {
+        System.out.println("Encryption with key:");
+        System.out.println("--------------------");
+    }
+
+    public void showDecriptWithKeyIntroMenu() {
+        System.out.println("Decryption with key:");
+        System.out.println("--------------------");
+    }
+
+    public void showBrutForceIntroMenu() {
+        System.out.println("Brute force:");
+        System.out.println("--------------------");
     }
 }

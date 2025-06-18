@@ -10,7 +10,7 @@ public class Cipher {
         this.key = key;
     }
 
-    public String encrypt(String line) {
+    public String encryptDecrypt(String line, Modes mode) {
         StringBuilder stringBuilder = new StringBuilder();
 
         for (int i = 0; i < line.length(); i++) {
@@ -20,13 +20,25 @@ public class Cipher {
             }
             for (int j = 0; j < alphabet.length; j++) {
                 if (line.charAt(i) == alphabet[j]) {
-                    stringBuilder.append(
+                    if (mode == Modes.ENCRYPTION) {
+                        stringBuilder.append(
                             alphabet[(j + key % alphabet.length + alphabet.length) % alphabet.length]);
+                    }
+                    if (mode == Modes.DECRYPTION) {
+                        stringBuilder.append(
+                                alphabet[(j - key % alphabet.length + alphabet.length) % alphabet.length]);
+                    }
                     break;
                 }
                 if (line.toLowerCase().charAt(i) == alphabet[j]) {
-                    stringBuilder.append(Character.toUpperCase(
-                            alphabet[(j + key % alphabet.length + alphabet.length) % alphabet.length]));
+                    if (mode == Modes.ENCRYPTION) {
+                        stringBuilder.append(Character.toUpperCase(
+                                alphabet[(j + key % alphabet.length + alphabet.length) % alphabet.length]));
+                    }
+                    if (mode == Modes.DECRYPTION) {
+                        stringBuilder.append(Character.toUpperCase(
+                                alphabet[(j - key % alphabet.length + alphabet.length) % alphabet.length]));
+                    }
                     break;
                 }
             }
@@ -35,30 +47,30 @@ public class Cipher {
         return stringBuilder.toString();
     }
 
-    public String decrypt(String line) {
-        StringBuilder stringBuilder = new StringBuilder();
-
-        for (int i = 0; i < line.length(); i++) {
-            if (!Character.isLetter(line.charAt(i))) {
-                stringBuilder.append(line.charAt(i));
-                continue;
-            }
-            for (int j = 0; j < alphabet.length; j++) {
-                if (line.charAt(i) == alphabet[j]) {
-                    stringBuilder.append(
-                            alphabet[(j - key % alphabet.length + alphabet.length) % alphabet.length]);
-                    break;
-                }
-                if (line.toLowerCase().charAt(i) == alphabet[j]) {
-                    stringBuilder.append(Character.toUpperCase(
-                            alphabet[(j - key % alphabet.length + alphabet.length) % alphabet.length]));
-                    break;
-                }
-            }
-        }
-
-        return stringBuilder.toString();
-    }
+//    public String decrypt(String line) {
+//        StringBuilder stringBuilder = new StringBuilder();
+//
+//        for (int i = 0; i < line.length(); i++) {
+//            if (!Character.isLetter(line.charAt(i))) {
+//                stringBuilder.append(line.charAt(i));
+//                continue;
+//            }
+//            for (int j = 0; j < alphabet.length; j++) {
+//                if (line.charAt(i) == alphabet[j]) {
+//                    stringBuilder.append(
+//                            alphabet[(j - key % alphabet.length + alphabet.length) % alphabet.length]);
+//                    break;
+//                }
+//                if (line.toLowerCase().charAt(i) == alphabet[j]) {
+//                    stringBuilder.append(Character.toUpperCase(
+//                            alphabet[(j - key % alphabet.length + alphabet.length) % alphabet.length]));
+//                    break;
+//                }
+//            }
+//        }
+//
+//        return stringBuilder.toString();
+//    }
 
 //    public String encryptLine(String line) {
 //        StringBuilder stringBuilder = new StringBuilder();

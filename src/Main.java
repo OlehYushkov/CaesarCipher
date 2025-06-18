@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+//        Scanner scanner = new Scanner(System.in);
         ConsoleInputHendler consoleInputHendler = new ConsoleInputHendler();
         consoleInputHendler.showMenu();
 

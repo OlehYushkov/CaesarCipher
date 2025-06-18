@@ -15,12 +15,13 @@ public class FileManager {
             BufferedReader bufferedReader = Files.newBufferedReader(Path.of(sourceFilePath));
             while ((line = bufferedReader.readLine()) != null) {
                 if (mode == Modes.ENCRYPTION) {
-                    writeLine(cipher.encrypt(line), resultFilePath);
+                    writeLine(cipher.encryptDecrypt(line, Modes.ENCRYPTION), resultFilePath);
                 }
                 if (mode == Modes.DECRYPTION) {
-                    writeLine(cipher.decrypt(line), resultFilePath);
+                    writeLine(cipher.encryptDecrypt(line, Modes.DECRYPTION), resultFilePath);
                 }
             }
+            Files.writeString(Path.of(resultFilePath), "\n", StandardOpenOption.APPEND);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -28,7 +29,7 @@ public class FileManager {
 
     public void writeLine(String line, String resultFilePath) {
         try {
-            Files.writeString(Path.of(resultFilePath), line + "\n", StandardOpenOption.APPEND);
+            Files.writeString(Path.of(resultFilePath), line + "\n", StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         } catch (IOException e) {
             e.printStackTrace();
         }
