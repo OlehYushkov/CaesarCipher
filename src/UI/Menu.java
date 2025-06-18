@@ -45,7 +45,7 @@ public class Menu {
         System.out.println("--------------------");
     }
 
-    public void showDecriptWithKeyIntroMenu() {
+    public void showDecryptWithKeyIntroMenu() {
         System.out.println("Decryption with key:");
         System.out.println("--------------------");
     }

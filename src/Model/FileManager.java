@@ -9,10 +9,9 @@ import java.nio.file.StandardOpenOption;
 public class FileManager {
 
     public void readAndProcessFile(Modes mode, String sourceFilePath, String resultFilePath, Cipher cipher) {
-        String line = "";
+        String line;
 
-        try {
-            BufferedReader bufferedReader = Files.newBufferedReader(Path.of(sourceFilePath));
+        try (BufferedReader bufferedReader = Files.newBufferedReader(Path.of(sourceFilePath))) {
             while ((line = bufferedReader.readLine()) != null) {
                 if (mode == Modes.ENCRYPTION) {
                     writeLine(cipher.encryptDecrypt(line, Modes.ENCRYPTION), resultFilePath);
