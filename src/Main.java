@@ -1,12 +1,10 @@
-import Service.ConsoleInputHendler;
-
-import java.util.Scanner;
+import Service.ConsoleInputHandler;
 
 public class Main {
 
     public static void main(String[] args) {
 //        Scanner scanner = new Scanner(System.in);
-        ConsoleInputHendler consoleInputHendler = new ConsoleInputHendler();
+        ConsoleInputHandler consoleInputHendler = new ConsoleInputHandler();
         consoleInputHendler.showMenu();
 
 //        final String sourceFilePath = "text.txt";

@@ -8,7 +8,7 @@ import UI.Menu;
 
 import java.util.Scanner;
 
-public class ConsoleInputHendler {
+public class ConsoleInputHandler {
 
     public void showMenu () {
         Scanner scanner = new Scanner(System.in);
