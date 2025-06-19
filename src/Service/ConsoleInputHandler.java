@@ -1,9 +1,6 @@
 package Service;
 
-import Model.Alphabet;
-import Model.Cipher;
-import Model.FileManager;
-import Model.Modes;
+import Model.*;
 import UI.Menu;
 
 import java.util.Scanner;
@@ -43,15 +40,19 @@ public class ConsoleInputHandler {
     private void encryptWithKeyOption(Menu menu, Scanner scanner) {
         menu.showEmptyLine();
         menu.showEncryptWithKeyIntroMenu();
+        String inputLine;
 
         menu.showEnterSourceFileMenu();
-        String sourceFilePath = scanner.nextLine();
+        inputLine = scanner.nextLine();
+        String sourceFilePath = Validator.checkEmptyLine(scanner, inputLine);
 
         menu.showEnterResultFileMenu();
-        String resultFilePath = scanner.nextLine();
+        inputLine = scanner.nextLine();
+        String resultFilePath = Validator.checkEmptyLine(scanner, inputLine);
 
         menu.showEnterKeyMenu();
-        int key = Integer.parseInt(scanner.nextLine());
+        inputLine = scanner.nextLine();
+        int key = Validator.parseToNumber(scanner, inputLine);
 
         Cipher cipher = new Cipher(Alphabet.getALPHABET(), key);
         FileManager fileManager = new FileManager();
@@ -59,6 +60,8 @@ public class ConsoleInputHandler {
 
         menu.showProcessCompletedMenu();
     }
+
+
 
     private void decryptWithKeyOption(Menu menu, Scanner scanner) {
         menu.showEmptyLine();
