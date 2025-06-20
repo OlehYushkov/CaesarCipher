@@ -9,6 +9,7 @@ import java.util.Scanner;
 public class ConsoleInputHandler {
 
     private final String IO_ERROR= "Error reading, writing, or creating file";
+    private final String IN_DEVELOPMENT = "\nFeature in development";
 
     public void showMenu() {
         Scanner scanner = new Scanner(System.in);
@@ -30,7 +31,7 @@ public class ConsoleInputHandler {
                 BruteForceOption(menu, scanner);
             }
             if (inputString.equals("4")) {
-
+                System.out.println(IN_DEVELOPMENT);
             }
             if (inputString.equals("0")) {
                 break;
