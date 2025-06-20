@@ -8,7 +8,9 @@ import java.nio.file.StandardOpenOption;
 
 public class FileManager {
 
-    public void readAndProcessFile(Modes mode, String sourceFilePath, String resultFilePath, Cipher cipher) {
+    private final String IO_ERROR= "Error reading, writing, or creating file";
+
+    public void readAndProcessFile(Modes mode, String sourceFilePath, String resultFilePath, Cipher cipher) throws IOException {
         String line;
 
         try (BufferedReader bufferedReader = Files.newBufferedReader(Path.of(sourceFilePath))) {
@@ -22,15 +24,15 @@ public class FileManager {
             }
             Files.writeString(Path.of(resultFilePath), "\n", StandardOpenOption.APPEND);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new IOException();
         }
     }
 
-    public void writeLine(String line, String resultFilePath) {
+    public void writeLine(String line, String resultFilePath) throws IOException {
         try {
             Files.writeString(Path.of(resultFilePath), line + "\n", StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new IOException();
         }
     }
 

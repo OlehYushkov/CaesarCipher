@@ -3,9 +3,12 @@ package Service;
 import Model.*;
 import UI.Menu;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class ConsoleInputHandler {
+
+    private final String IO_ERROR= "Error reading, writing, or creating file";
 
     public void showMenu() {
         Scanner scanner = new Scanner(System.in);
@@ -40,66 +43,87 @@ public class ConsoleInputHandler {
     private void encryptWithKeyOption(Menu menu, Scanner scanner) {
         menu.showEmptyLine();
         menu.showEncryptWithKeyIntroMenu();
-        String inputLine;
 
-        menu.showEnterSourceFileMenu();
-        inputLine = scanner.nextLine();
-        String sourceFilePath = Validator.checkEmptyLine(scanner, inputLine);
-
-        menu.showEnterResultFileMenu();
-        inputLine = scanner.nextLine();
-        String resultFilePath = Validator.checkEmptyLine(scanner, inputLine);
-
-        menu.showEnterKeyMenu();
-        inputLine = scanner.nextLine();
-        int key = Validator.parseToNumber(scanner, inputLine);
+        String sourceFilePath = sourceFilePathInput(menu, scanner);
+        String resultFilePath = resultFilePathInput(menu, scanner);
+        int key = keyInput(menu, scanner);
 
         Cipher cipher = new Cipher(Alphabet.getALPHABET(), key);
         FileManager fileManager = new FileManager();
-        fileManager.readAndProcessFile(Modes.ENCRYPTION, sourceFilePath, resultFilePath, cipher);
-
-        menu.showProcessCompletedMenu();
+        try {
+            fileManager.readAndProcessFile(Modes.ENCRYPTION, sourceFilePath, resultFilePath, cipher);
+            menu.showProcessCompletedMenu();
+        } catch (IOException e) {
+            System.err.println(IO_ERROR);
+            e.printStackTrace();
+        }
     }
-
-
 
     private void decryptWithKeyOption(Menu menu, Scanner scanner) {
         menu.showEmptyLine();
         menu.showDecryptWithKeyIntroMenu();
 
-        menu.showEnterSourceFileMenu();
-        String sourceFilePath = scanner.nextLine();
-
-        menu.showEnterResultFileMenu();
-        String resultFilePath = scanner.nextLine();
-
-        menu.showEnterKeyMenu();
-        int key = Integer.parseInt(scanner.nextLine());
+        String sourceFilePath = sourceFilePathInput(menu, scanner);
+        String resultFilePath = resultFilePathInput(menu, scanner);
+        int key = keyInput(menu, scanner);
 
         Cipher cipher = new Cipher(Alphabet.getALPHABET(), key);
         FileManager fileManager = new FileManager();
-        fileManager.readAndProcessFile(Modes.DECRYPTION, sourceFilePath, resultFilePath, cipher);
 
-        menu.showProcessCompletedMenu();
+        try {
+            fileManager.readAndProcessFile(Modes.DECRYPTION, sourceFilePath, resultFilePath, cipher);
+            menu.showProcessCompletedMenu();
+        } catch (IOException e) {
+            System.err.println(IO_ERROR);
+            e.printStackTrace();
+        }
     }
 
     private void BruteForceOption(Menu menu, Scanner scanner) {
         menu.showEmptyLine();
         menu.showBrutForceIntroMenu();
 
-        menu.showEnterSourceFileMenu();
-        String sourceFilePath = scanner.nextLine();
-
-        menu.showEnterResultFileMenu();
-        String resultFilePath = scanner.nextLine();
+        String sourceFilePath = sourceFilePathInput(menu, scanner);
+        String resultFilePath = resultFilePathInput(menu, scanner);
 
         FileManager fileManager = new FileManager();
-        for (int i = 0; i < Alphabet.getALPHABET().length; i++) {
-            Cipher cipher = new Cipher(Alphabet.getALPHABET(), i + 1);
-            fileManager.readAndProcessFile(Modes.DECRYPTION, sourceFilePath, resultFilePath, cipher);
+        try {
+            for (int i = 0; i < Alphabet.getALPHABET().length; i++) {
+                Cipher cipher = new Cipher(Alphabet.getALPHABET(), i + 1);
+                fileManager.readAndProcessFile(Modes.DECRYPTION, sourceFilePath, resultFilePath, cipher);
+            }
+            menu.showProcessCompletedMenu();
+        } catch (IOException e) {
+            System.err.println(IO_ERROR);
+            e.printStackTrace();
         }
+    }
 
-        menu.showProcessCompletedMenu();
+    private String sourceFilePathInput(Menu menu, Scanner scanner) {
+        String inputLine;
+
+        menu.showEnterSourceFileMenu();
+        inputLine = scanner.nextLine();
+
+        return Validator.checkEmptyLine(scanner, inputLine);
+    }
+
+    private String resultFilePathInput(Menu menu, Scanner scanner) {
+        String inputLine;
+
+        menu.showEnterResultFileMenu();
+        inputLine = scanner.nextLine();
+
+        return Validator.checkEmptyLine(scanner, inputLine);
+    }
+
+    private int keyInput(Menu menu, Scanner scanner) {
+        String inputLine;
+
+        menu.showEnterKeyMenu();
+        inputLine = scanner.nextLine();
+
+        return Validator.parseToNumber(scanner, inputLine);
     }
 
 }
