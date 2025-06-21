@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class ConsoleInputHandler {
 
-    private final String IO_ERROR= "Error reading, writing, or creating file";
+    private final String IO_ERROR = "Error reading, writing, or creating file";
     private final String IN_DEVELOPMENT = "\nFeature in development";
 
     public void showMenu() {
@@ -46,13 +46,13 @@ public class ConsoleInputHandler {
         menu.showEncryptWithKeyIntroMenu();
 
         String sourceFilePath = sourceFilePathInput(menu, scanner);
-        String resultFilePath = resultFilePathInput(menu, scanner);
+        String outputFilePath = outputFilePathInput(menu, scanner, sourceFilePath);
         int key = keyInput(menu, scanner);
 
         Cipher cipher = new Cipher(Alphabet.getALPHABET(), key);
         FileManager fileManager = new FileManager();
         try {
-            fileManager.readAndProcessFile(Modes.ENCRYPTION, sourceFilePath, resultFilePath, cipher);
+            fileManager.readAndProcessFile(Modes.ENCRYPTION, sourceFilePath, outputFilePath, cipher);
             menu.showProcessCompletedMenu();
         } catch (IOException e) {
             System.err.println(IO_ERROR);
@@ -65,14 +65,14 @@ public class ConsoleInputHandler {
         menu.showDecryptWithKeyIntroMenu();
 
         String sourceFilePath = sourceFilePathInput(menu, scanner);
-        String resultFilePath = resultFilePathInput(menu, scanner);
+        String outputFilePath = outputFilePathInput(menu, scanner, sourceFilePath);
         int key = keyInput(menu, scanner);
 
         Cipher cipher = new Cipher(Alphabet.getALPHABET(), key);
         FileManager fileManager = new FileManager();
 
         try {
-            fileManager.readAndProcessFile(Modes.DECRYPTION, sourceFilePath, resultFilePath, cipher);
+            fileManager.readAndProcessFile(Modes.DECRYPTION, sourceFilePath, outputFilePath, cipher);
             menu.showProcessCompletedMenu();
         } catch (IOException e) {
             System.err.println(IO_ERROR);
@@ -85,13 +85,13 @@ public class ConsoleInputHandler {
         menu.showBrutForceIntroMenu();
 
         String sourceFilePath = sourceFilePathInput(menu, scanner);
-        String resultFilePath = resultFilePathInput(menu, scanner);
+        String outputFilePath = outputFilePathInput(menu, scanner, sourceFilePath);
 
         FileManager fileManager = new FileManager();
         try {
             for (int i = 0; i < Alphabet.getALPHABET().length; i++) {
                 Cipher cipher = new Cipher(Alphabet.getALPHABET(), i + 1);
-                fileManager.readAndProcessFile(Modes.DECRYPTION, sourceFilePath, resultFilePath, cipher);
+                fileManager.readAndProcessFile(Modes.DECRYPTION, sourceFilePath, outputFilePath, cipher);
             }
             menu.showProcessCompletedMenu();
         } catch (IOException e) {
@@ -105,17 +105,23 @@ public class ConsoleInputHandler {
 
         menu.showEnterSourceFileMenu();
         inputLine = scanner.nextLine();
+        inputLine = Validator.checkEmptyLine(scanner, inputLine);
+        inputLine = Validator.isLineConvertedIntoPath(scanner, inputLine);
+        inputLine = Validator.isFileExists(scanner, inputLine);
 
-        return Validator.checkEmptyLine(scanner, inputLine);
+        return inputLine;
     }
 
-    private String resultFilePathInput(Menu menu, Scanner scanner) {
+    private String outputFilePathInput(Menu menu, Scanner scanner, String sourceFile) {
         String inputLine;
 
         menu.showEnterResultFileMenu();
         inputLine = scanner.nextLine();
+        inputLine = Validator.checkEmptyLine(scanner, inputLine);
+        inputLine = Validator.isLineConvertedIntoPath(scanner, inputLine);
+        inputLine = Validator.isOutputFileEqualseSourceFile(scanner,inputLine, sourceFile);
 
-        return Validator.checkEmptyLine(scanner, inputLine);
+        return inputLine;
     }
 
     private int keyInput(Menu menu, Scanner scanner) {

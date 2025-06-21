@@ -21,15 +21,15 @@ public class Menu {
     }
 
     public void showEnterSourceFileMenu() {
-        System.out.print("Enter a Path to Source file: ");
+        System.out.print("Enter a Path to Source File: ");
     }
 
     public void showEnterResultFileMenu() {
-        System.out.print("Enter a Path to Output file: ");
+        System.out.print("Enter a Path to Output File: ");
     }
 
     public void showEnterKeyMenu() {
-        System.out.print("Enter a Encryption key: ");
+        System.out.print("Enter a Encryption Key: ");
     }
 
     public void showProcessCompletedMenu() {

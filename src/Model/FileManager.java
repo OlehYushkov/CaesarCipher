@@ -10,19 +10,19 @@ public class FileManager {
 
     private final String IO_ERROR= "Error reading, writing, or creating file";
 
-    public void readAndProcessFile(Modes mode, String sourceFilePath, String resultFilePath, Cipher cipher) throws IOException {
+    public void readAndProcessFile(Modes mode, String sourceFilePath, String outputFilePath, Cipher cipher) throws IOException {
         String line;
 
         try (BufferedReader bufferedReader = Files.newBufferedReader(Path.of(sourceFilePath))) {
             while ((line = bufferedReader.readLine()) != null) {
                 if (mode == Modes.ENCRYPTION) {
-                    writeLine(cipher.encryptDecrypt(line, Modes.ENCRYPTION), resultFilePath);
+                    writeLine(cipher.encryptDecrypt(line, Modes.ENCRYPTION), outputFilePath);
                 }
                 if (mode == Modes.DECRYPTION) {
-                    writeLine(cipher.encryptDecrypt(line, Modes.DECRYPTION), resultFilePath);
+                    writeLine(cipher.encryptDecrypt(line, Modes.DECRYPTION), outputFilePath);
                 }
             }
-            Files.writeString(Path.of(resultFilePath), "\n", StandardOpenOption.APPEND);
+            Files.writeString(Path.of(outputFilePath), "\n", StandardOpenOption.APPEND);
         } catch (IOException e) {
             throw new IOException();
         }
