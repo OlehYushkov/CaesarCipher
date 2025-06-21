@@ -32,7 +32,7 @@ public class Validator {
     }
 
     public static String isFileExists(Scanner scanner, String filePath) {
-        while(true) {
+        while (true) {
             if (!Files.exists(Path.of(filePath))) {
                 System.out.println(FILE_NOT_EXIST);
                 System.out.print(ENTER_CORRECT_PATH_TO_FILE);
@@ -47,7 +47,7 @@ public class Validator {
     }
 
     public static String checkEmptyLine(Scanner scanner, String line) {
-        while(true) {
+        while (true) {
             if (line.isEmpty()) {
                 System.out.println(LINE_SHOULD_NOT_EMPTY);
                 System.out.print(ENTER_CORRECT_PATH_TO_FILE);
@@ -60,7 +60,7 @@ public class Validator {
     }
 
     public static String isOutputFileEqualseSourceFile(Scanner scanner, String outputFile, String sourceFile) {
-        while(true) {
+        while (true) {
             if (outputFile.equals(sourceFile)) {
                 System.out.println(OUTPUT_FILE_NOT_EQUALS_SOURCE_FILE);
                 System.out.print(ENTER_CORRECT_PATH_TO_FILE);
@@ -76,7 +76,7 @@ public class Validator {
 
     public static int parseToNumber(Scanner scanner, String line) {
         int num;
-        while(true) {
+        while (true) {
             try {
                 num = Integer.parseInt(line);
                 break;
