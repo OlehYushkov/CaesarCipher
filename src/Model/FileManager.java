@@ -8,8 +8,6 @@ import java.nio.file.StandardOpenOption;
 
 public class FileManager {
 
-    private final String IO_ERROR = "Error reading, writing, or creating file";
-
     public void readAndProcessFile(Modes mode, String sourceFilePath, String outputFilePath, Cipher cipher) throws IOException {
         String line;
 
