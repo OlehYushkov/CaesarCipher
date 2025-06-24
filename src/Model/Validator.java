@@ -59,7 +59,7 @@ public class Validator {
         return line;
     }
 
-    public static String isOutputFileEqualseSourceFile(Scanner scanner, String outputFile, String sourceFile) {
+    public static String isOutputFileEqualsSourceFile(Scanner scanner, String outputFile, String sourceFile) {
         while (true) {
             if (outputFile.equals(sourceFile)) {
                 System.out.println(OUTPUT_FILE_NOT_EQUALS_SOURCE_FILE);

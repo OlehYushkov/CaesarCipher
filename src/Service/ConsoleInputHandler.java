@@ -119,7 +119,7 @@ public class ConsoleInputHandler {
         inputLine = scanner.nextLine();
         inputLine = Validator.checkEmptyLine(scanner, inputLine);
         inputLine = Validator.isLineConvertedIntoPath(scanner, inputLine);
-        inputLine = Validator.isOutputFileEqualseSourceFile(scanner, inputLine, sourceFile);
+        inputLine = Validator.isOutputFileEqualsSourceFile(scanner, inputLine, sourceFile);
 
         return inputLine;
     }
